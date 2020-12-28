@@ -172,7 +172,7 @@ class _AudioKajian extends State<AudioKajian> {
                   ),
                   Expanded(
                     child: Text(
-                      "Playlist",
+                      "Audio Kajian",
                       style: Theme.of(context).textTheme.headline6,
                       textAlign: TextAlign.center,
                     ),

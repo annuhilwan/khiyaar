@@ -27,6 +27,7 @@ import 'konsultasiislam.dart';
 import 'package:khiyaar/kiblat/kiblat.dart';
 import 'package:khiyaar/beranda/jadwalkajian.dart';
 import 'audiokajian.dart';
+import 'profil.dart';
 
 class BerandaPage extends StatefulWidget {
   @override
@@ -825,55 +826,6 @@ class LokasiKiblat extends StatelessWidget {
           ),
         ),
         backgroundColor: Colors.blue,
-      ),
-    );
-  }
-}
-
-class Profil extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return new SafeArea(
-      child: Scaffold(
-        appBar: new KhiyaarAppBar(),
-        body: Container(
-          padding: EdgeInsets.all(15),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              //BAGIAN INI NORMAL, HANYA MENAMPILKAN TEXT DENGAN STYLE MASING-MASING
-              Text(
-                "PROFIL",
-                style: TextStyle(
-                    fontSize: 25,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold),
-              ),
-              Text(
-                'Khiyaar TV adalah media dakwah dan sosial yang berada di daerah Cideres, Majalengka, Jawa Barat Khiyaar TV mulai terbentuk pada 08 Ramadhan 1438H/03 Juni 2017M. Berawal dari satu orang dari kami yang menemani perjalanan Ustadz Abu Humairo Muhamad Fadly hafizhahullah mengisi kajian rutin dengan kendaraan pribadi miliknya. Waktu itu Ustadz sedang ada jadwal mengisi kajian daurah Ramadhan di daerah Indramayu tetangga kota Majalengka',
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.black,
-                ),
-              ),
-              Text(
-                'Dari situlah, semuanya bermula. Orang tersebut adalah yang mengenalkan kami dengan Ustadz Abu Humairo Muhamad Fadly. Padahal, kami sudah cukup lama tinggal di Majalengka, karena memang sebagian besar dari kami adalah putra asli Majalengka. Namun, kami belum kenal dengan Ustadz, sehingga kami belum tahu adanya majelis ilmu rutin di sekitar Cideres, Majalengka.',
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.black,
-                ),
-              ),
-              Text(
-                'Alhamdulillah alladzi binimatihi tatimmus shaalihaat, kami sangat bersyukur kepada Allah azza wa jalla, pertemuan kami dengan orang tersebut adalah awal dari pintu kebaikan. Sebab situlah kami kenal dengan Ustadz, mulai bisa merasakan nikmatnya duduk di majelis ilmu dengan rutin dan sampai pada Allah pun mudahkan langkah kebaikan untuk kami, yakni dengan kami pun bisa membuat sebuah komunitas Islam dan media dakwah.',
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.black,
-                ),
-              ),
-            ],
-          ),
-        ),
-        backgroundColor: Colors.white,
       ),
     );
   }

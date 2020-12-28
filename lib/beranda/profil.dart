@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:html/parser.dart';
-import 'package:khiyaar/api/jadwalkajianapi.dart';
+import 'package:khiyaar/api/profilapi.dart';
 import 'package:khiyaar/constant.dart';
 import 'package:khiyaar/beranda/beranda_khiyaar_appbar.dart';
 import 'package:khiyaar/screens/post.dart';
@@ -19,19 +19,19 @@ class MyApp extends StatelessWidget {
         primaryColor: KhiyaarPalette.green,
         accentColor: KhiyaarPalette.green,
       ),
-      home: HomePage(),
-      initialRoute: HomePage.routeName,
+      home: Profil(),
+      initialRoute: Profil.routeName,
       routes: {
-        HomePage.routeName: (BuildContext context) => HomePage(),
+        Profil.routeName: (BuildContext context) => Profil(),
         DetalleDelPost.routeName: (BuildContext context) => DetalleDelPost()
       },
     );
   }
 }
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key key}) : super(key: key);
-  static const routeName = '/HomePage';
+class Profil extends StatelessWidget {
+  const Profil({Key key}) : super(key: key);
+  static const routeName = '/Profil';
 
   @override
   Widget build(BuildContext context) {
@@ -41,11 +41,11 @@ class HomePage extends StatelessWidget {
       body: ListView(
         children: [
           Text(
-            'JADWAL KAJIAN',
+            'PROFIL',
             style: new TextStyle(
               fontSize: 18.0,
               fontWeight: FontWeight.bold,
-              color: Colors.white,
+              color: Colors.black,
             ),
             textAlign: TextAlign.center,
           ),
@@ -53,56 +53,35 @@ class HomePage extends StatelessWidget {
             future: lugares(),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.hasData) {
-                var posts = snapshot.data;
+                var pages = snapshot.data;
                 return Column(children: [
-                  ...posts.map((e) {
+                  ...pages.map((e) {
                     return GestureDetector(
-                      onTap: () => Navigator.of(context)
-                          .pushNamed(DetalleDelPost.routeName, arguments: e),
                       child: Row(
                         children: <Widget>[
-                          FadeInImage(
-                            placeholder: AssetImage('assets/loading.gif'),
-                            image: NetworkImage(e['_embedded']
-                                ['wp:featuredmedia'][0]['source_url']),
-                            height: 100.0,
-                            width: 100.0,
-                          ),
                           Container(
-                            width: 280,
+                            width: 380,
                             padding: EdgeInsets.all(20),
                             margin: EdgeInsets.fromLTRB(0, 0, 15, 0),
                             child: Column(
                               children: <Widget>[
-                                Text(
-                                  e['title']['rendered'],
-                                  style: new TextStyle(
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                  ),
-                                  textAlign: TextAlign.justify,
+                                FadeInImage(
+                                  placeholder: AssetImage('assets/loading.gif'),
+                                  image: NetworkImage(e["_embedded"]
+                                              ["wp:featuredmedia"][0]
+                                          ["media_details"]["sizes"]
+                                      ["medium_large"]["source_url"]),
                                 ),
                                 Text(
-                                  e['date'],
+                                  parse(e['content']['rendered'])
+                                      .documentElement
+                                      .text,
                                   style: new TextStyle(
-                                    fontSize: 12.0,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
+                                    fontSize: 14.0,
+                                    color: Colors.black,
                                   ),
                                   textAlign: TextAlign.justify,
-                                ),
-                                Text(
-                                    parse(e['content']['rendered'])
-                                        .documentElement
-                                        .text,
-                                    maxLines: 3,
-                                    style: new TextStyle(
-                                      fontSize: 12.0,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-                                    ),
-                                    textAlign: TextAlign.justify)
+                                )
                               ],
                             ),
                           ),
@@ -118,7 +97,6 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-      backgroundColor: Colors.blue,
     ));
   }
 }
