@@ -41,7 +41,7 @@ class _BerandaPageState extends State<BerandaPage> {
       children: <Widget>[
         Container(
           height: 40.0,
-          width: 198.9,
+          width: MediaQuery.of(context).size.width / 2,
           margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
           padding: EdgeInsets.fromLTRB(5, 10, 0, 0),
           decoration: BoxDecoration(
@@ -70,7 +70,7 @@ class _BerandaPageState extends State<BerandaPage> {
         ),
         Container(
           height: 40.0,
-          width: 210.9,
+          width: MediaQuery.of(context).size.width / 2,
           margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
           padding: EdgeInsets.fromLTRB(0, 10, 5, 0),
           decoration: BoxDecoration(
@@ -848,13 +848,6 @@ class Profil extends StatelessWidget {
                     fontSize: 25,
                     color: Colors.black,
                     fontWeight: FontWeight.bold),
-              ),
-              Text(
-                '',
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.black,
-                ),
               ),
               Text(
                 'Khiyaar TV adalah media dakwah dan sosial yang berada di daerah Cideres, Majalengka, Jawa Barat Khiyaar TV mulai terbentuk pada 08 Ramadhan 1438H/03 Juni 2017M. Berawal dari satu orang dari kami yang menemani perjalanan Ustadz Abu Humairo Muhamad Fadly hafizhahullah mengisi kajian rutin dengan kendaraan pribadi miliknya. Waktu itu Ustadz sedang ada jadwal mengisi kajian daurah Ramadhan di daerah Indramayu tetangga kota Majalengka',
