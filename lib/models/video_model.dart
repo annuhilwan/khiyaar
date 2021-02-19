@@ -1,12 +1,14 @@
 class Video {
   final String id;
   final String title;
+  final String description;
   final String thumbnailUrl;
   final String channelTitle;
 
   Video({
     this.id,
     this.title,
+    this.description,
     this.thumbnailUrl,
     this.channelTitle,
   });
@@ -15,6 +17,7 @@ class Video {
     return Video(
       id: snippet['resourceId']['videoId'],
       title: snippet['title'],
+      description: snippet['description'],
       thumbnailUrl: snippet['thumbnails']['high']['url'],
       channelTitle: snippet['channelTitle'],
     );

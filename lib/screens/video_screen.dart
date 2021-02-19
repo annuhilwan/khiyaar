@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
-
 import 'package:khiyaar/beranda/beranda_khiyaar_appbar.dart';
+import 'package:khiyaar/screens/home_screen.dart';
 
 class VideoScreen extends StatefulWidget {
   final String id;
+  final String title;
+  final String description;
 
-  VideoScreen({this.id});
+  VideoScreen({this.id, this.title, this.description});
 
   @override
   _VideoScreenState createState() => _VideoScreenState();
@@ -29,14 +31,16 @@ class _VideoScreenState extends State<VideoScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: new KhiyaarAppBar(),
-      body: YoutubePlayer(
-        controller: _controller,
-        showVideoProgressIndicator: true,
-        onReady: () {
-          print('Player is ready.');
-        },
+    return new SafeArea(
+      child: Scaffold(
+        appBar: new KhiyaarAppBar(),
+        body: YoutubePlayer(
+          controller: _controller,
+          showVideoProgressIndicator: true,
+          onReady: () {
+            print('Player is ready.');
+          },
+        ),
       ),
     );
   }

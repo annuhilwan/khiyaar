@@ -60,9 +60,9 @@ class Profil extends StatelessWidget {
                       child: Row(
                         children: <Widget>[
                           Container(
-                            width: 380,
+                            width: MediaQuery.of(context).size.width * 0.95,
                             padding: EdgeInsets.all(20),
-                            margin: EdgeInsets.fromLTRB(0, 0, 15, 0),
+                            margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
                             child: Column(
                               children: <Widget>[
                                 FadeInImage(

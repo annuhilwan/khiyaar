@@ -1,3 +1,16 @@
+import 'package:progress_indicators/progress_indicators.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:khiyaar/api/api_service.dart';
+import 'package:khiyaar/api/api_url.dart';
+import 'package:khiyaar/baseurl/base_asset.dart';
+import 'package:khiyaar/baseurl/base_style.dart';
+import 'package:khiyaar/helper/remove_glow.dart';
+import 'package:khiyaar/models/response_surat.dart';
+import 'package:khiyaar/baseurl/base_app.dart';
+import 'package:khiyaar/models/response_shalat.dart' as shalat;
+import 'package:khiyaar/screens/paget_ayat.dart';
+import 'package:khiyaar/beranda/prayers.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
@@ -5,6 +18,7 @@ import 'package:khiyaar/beranda/beranda_khiyaar_appbar.dart';
 import 'package:intl/intl.dart';
 import 'package:khiyaar/models/prayer_time.dart';
 import 'package:khiyaar/screens/home_screen.dart';
+import 'package:khiyaar/screens/page_main.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'dart:async';
@@ -13,9 +27,9 @@ import 'package:hijri/hijri_calendar.dart';
 import 'package:hijri_picker/hijri_picker.dart';
 
 import 'package:geolocator/geolocator.dart';
-import 'package:khiyaar/models/prayer_time.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'prayer.dart';
+import 'prayers.dart';
 import 'jadwalkajian.dart';
 import 'panduanibadah.dart';
 import 'panduansosial.dart';
@@ -28,6 +42,7 @@ import 'package:khiyaar/kiblat/kiblat.dart';
 import 'package:khiyaar/beranda/jadwalkajian.dart';
 import 'audiokajian.dart';
 import 'profil.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class BerandaPage extends StatefulWidget {
   @override
@@ -37,70 +52,6 @@ class BerandaPage extends StatefulWidget {
 class _BerandaPageState extends State<BerandaPage> {
   @override
   Widget build(BuildContext context) {
-    Widget sholatmenu = Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Container(
-          height: 40.0,
-          width: MediaQuery.of(context).size.width / 2,
-          margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-          padding: EdgeInsets.fromLTRB(5, 10, 0, 0),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(0.0), color: Colors.white),
-          child: Material(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(5.0),
-            child: InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Home()),
-                );
-              },
-              child: Text(
-                'Waktu Maghrib : 17.31',
-                style: TextStyle(
-                  color: Colors.blue,
-                  fontSize: 12.0,
-                  fontWeight: FontWeight.bold,
-                ),
-                textAlign: TextAlign.left,
-              ),
-            ),
-          ),
-        ),
-        Container(
-          height: 40.0,
-          width: MediaQuery.of(context).size.width / 2,
-          margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-          padding: EdgeInsets.fromLTRB(0, 10, 5, 0),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(0.0), color: Colors.white),
-          child: Material(
-            color: Colors.transparent,
-            borderRadius: BorderRadius.circular(5.0),
-            child: InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Home()),
-                );
-              },
-              child: Text(
-                'InsyaAllah 22 menit lagi',
-                style: TextStyle(
-                  color: Colors.blue,
-                  fontSize: 12.0,
-                  fontWeight: FontWeight.bold,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-
     Widget containSection = Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
@@ -172,7 +123,7 @@ class _BerandaPageState extends State<BerandaPage> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => AudioKajian()),
+                  MaterialPageRoute(builder: (context) => ExampleApp()),
                 );
               },
               child: Center(
@@ -237,7 +188,7 @@ class _BerandaPageState extends State<BerandaPage> {
               },
               child: Center(
                 child: Text(
-                  'PANDUAN SOSIAL',
+                  'PANDUAN DOA',
                   style: TextStyle(color: Colors.blue, fontSize: 10.0),
                   textAlign: TextAlign.center,
                 ),
@@ -481,8 +432,8 @@ class _BerandaPageState extends State<BerandaPage> {
     Widget terjemahanSection = Container(
         padding: EdgeInsets.all(16),
         child: Text(
-          'Ya Allah, aku memohon kepadaMu ilmu yang bermanfaat, \n'
-          'dan berlindung kepadaMu dari ilmu yang tidak bermanfaat. \n'
+          'Ya Allah, kami memohon kepadaMu ilmu yang bermanfaat, \n'
+          'dan kami berlindung kepadaMu dari ilmu yang tidak bermanfaat. \n'
           '(HR. Ibnu Hibban, No. 82)',
           textAlign: TextAlign.center,
           style: TextStyle(
@@ -493,6 +444,7 @@ class _BerandaPageState extends State<BerandaPage> {
         ));
 
     HijriCalendar.setLocal(Localizations.localeOf(context).languageCode);
+
     return new SafeArea(
         child: Scaffold(
       appBar: new KhiyaarAppBar(),
@@ -508,7 +460,6 @@ class _BerandaPageState extends State<BerandaPage> {
                     _buildTglMenu(),
                   ],
                 )),
-            sholatmenu,
             new Container(
                 margin: EdgeInsets.only(left: 0.0, right: 0.0, top: 36.0),
                 child: new Column(
@@ -591,7 +542,7 @@ Widget _buildTglMenu() {
   String day;
   switch (daynow) {
     case 'Sunday':
-      day = "Minggu";
+      day = "Ahad";
       break;
     case 'Monday':
       day = "Senin";
@@ -625,8 +576,8 @@ Widget _buildTglMenu() {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               new Text(
-                '$hijriDate \n'
-                '$finalDate',
+                '$hijriDate H \n'
+                '$finalDate M',
                 style: new TextStyle(
                   fontSize: 12.0,
                   fontWeight: FontWeight.bold,
@@ -642,11 +593,11 @@ Widget _buildTglMenu() {
   }
 
   return new Container(
-      height: 52.0,
+      height: 42.0,
       child: new Column(
         children: <Widget>[
           new Container(
-            margin: EdgeInsets.all(10.0),
+            margin: EdgeInsets.fromLTRB(10.0, 5.0, 2.0, 2.0),
             child: new Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -659,8 +610,8 @@ Widget _buildTglMenu() {
                   ),
                 ),
                 new Container(
-                  margin: EdgeInsets.fromLTRB(0, 0.1, 0, 3.0),
-                  width: 170.0,
+                  margin: EdgeInsets.fromLTRB(1.0, 0.1, 0, 2.0),
+                  width: 130.0,
                   child: _buildHijriMenu(),
                 )
               ],
@@ -716,7 +667,7 @@ Widget _buildTextPilih() {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 new Text(
-                  "Silahkan Pilih Layanan Yang Anda Butuhkan !!! ",
+                  "Silakan Pilih Layanan Yang Anda Butuhkan ! ",
                   style: new TextStyle(
                     fontSize: 14.0,
                     fontWeight: FontWeight.bold,
@@ -772,7 +723,7 @@ Widget _buildArab() {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 new Text(
-                  "اَللَّهُمَّ إِنِّيْ أَسْأَلُكَ عِلْمًا نَافِعًا، وَأَعُوْذُ بِكَ مِنْ عِلْمٍ لَا يَنْفَعُ",
+                  "اَللَّهُمَّ إِنَّا نَسْأَلُكَ عِلْمًا نَافِعًا وَنَعُوْذُ بِكَ مِنْ عِلْمٍ لَا يَنْفَعُ",
                   style: new TextStyle(
                     fontSize: 18.0,
                     fontWeight: FontWeight.bold,
@@ -827,6 +778,21 @@ class LokasiKiblat extends StatelessWidget {
         ),
         backgroundColor: Colors.blue,
       ),
+    );
+  }
+}
+
+class NewScreen extends StatelessWidget {
+  String payload;
+
+  NewScreen({
+    @required this.payload,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      body: new BerandaPage(),
     );
   }
 }

@@ -1,0 +1,54 @@
+Widget _hitungjam() {
+  final currentTime = DateTime.now();
+  final tglskrg = DateFormat('yyyy-MM-dd').format(currentTime);
+  final startTime = DateTime.parse('$tglskrg $_curTimeShalat');
+  final diff_mn = startTime.difference(currentTime).inMinutes;
+  final diff_mnlb = currentTime.difference(startTime).inMinutes;
+
+  String durationToString(int minutes) {
+    var d = Duration(minutes: minutes);
+    List<String> parts = d.toString().split(':');
+    return '${parts[0].padLeft(2, '0')} jam ${parts[1].padLeft(2, '0')} menit';
+  }
+
+  var selisih = durationToString(diff_mn);
+  var selisihlebih = durationToString(diff_mnlb);
+
+  return new Container(
+      child: new Column(
+    children: <Widget>[
+      new Container(
+        child: new Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Builder(
+              builder: (context) {
+                if (currentTime.hour >= startTime.hour &&
+                    currentTime.minute >= startTime.minute)
+                  return Text(
+                    '$selisihlebih yang lalu',
+                    style: TextStyle(
+                      color: Colors.blue,
+                      fontSize: 12.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.left,
+                  );
+                else
+                  return Text(
+                    'Insyaallah $selisih lagi',
+                    style: TextStyle(
+                      color: Colors.blue,
+                      fontSize: 12.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.left,
+                  );
+              },
+            ),
+          ],
+        ),
+      ),
+    ],
+  ));
+}

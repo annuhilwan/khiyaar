@@ -15,7 +15,7 @@ class _LauncherPageState extends State<LauncherPage> {
   }
 
   startLaunching() async {
-    var duration = const Duration(seconds: 5);
+    var duration = const Duration(seconds: 10);
     return new Timer(duration, () {
       Navigator.of(context).pushReplacement(new MaterialPageRoute(builder: (_) {
         return new LandingPage();
@@ -28,7 +28,7 @@ class _LauncherPageState extends State<LauncherPage> {
     return new Scaffold(
       body: new Center(
         child: new Image.asset(
-          "assets/logo-khiyaar.png",
+          "assets/khiyaar-logo.png",
           height: 100.0,
           width: 200.0,
         ),

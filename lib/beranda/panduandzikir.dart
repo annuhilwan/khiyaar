@@ -56,6 +56,10 @@ class PanduanDzikir extends StatelessWidget {
                 var posts = snapshot.data;
                 return Column(children: [
                   ...posts.map((e) {
+                    String date = e['date'].substring(0, 10);
+                    var dates = DateTime.parse(date);
+                    var datess =
+                        "${dates.day} - ${dates.month} - ${dates.year}";
                     return GestureDetector(
                       onTap: () => Navigator.of(context)
                           .pushNamed(DetalleDelPost.routeName, arguments: e),
@@ -81,28 +85,28 @@ class PanduanDzikir extends StatelessWidget {
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white,
                                   ),
-                                  textAlign: TextAlign.left,
+                                  textAlign: TextAlign.center,
                                 ),
                                 Text(
-                                  e['date'],
+                                  '$datess',
                                   style: new TextStyle(
                                     fontSize: 12.0,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white,
                                   ),
-                                  textAlign: TextAlign.left,
+                                  textAlign: TextAlign.center,
                                 ),
                                 Text(
-                                  parse(e['content']['rendered'])
-                                      .documentElement
-                                      .text,
-                                  maxLines: 3,
-                                  style: new TextStyle(
-                                    fontSize: 12.0,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                  ),
-                                )
+                                    parse(e['content']['rendered'])
+                                        .documentElement
+                                        .text,
+                                    maxLines: 3,
+                                    style: new TextStyle(
+                                      fontSize: 12.0,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    ),
+                                    textAlign: TextAlign.center)
                               ],
                             ),
                           ),

@@ -2,6 +2,8 @@ import 'dart:collection';
 import 'dart:math' as math;
 import 'dart:core';
 
+import 'package:flutter/material.dart';
+
 class PrayerTime {
   // ---------------------- Global Variables --------------------
   int _calcMethod; // caculation method

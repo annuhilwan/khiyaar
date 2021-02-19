@@ -2,7 +2,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 final dominiourl =
-    'https://khiyaar.com/wp-json/wp/v2/posts?_embed&categories=1982';
+    'https://khiyaar.com/wp-json/wp/v2/posts?_embed&categories=1982&per_page=50';
 
 Future<List> lugares() async {
   final response =

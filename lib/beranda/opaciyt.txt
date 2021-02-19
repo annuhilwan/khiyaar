@@ -1,0 +1,27 @@
+ new Opacity(
+                opacity: 0.0,
+                child: new Padding(
+                  padding: const EdgeInsets.only(
+                    left: 16.0,
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Builder(builder: (context) {
+                        if (startTime.hour == currentTime.hour &&
+                            startTime.minute == currentTime.minute)
+                          showNotification();
+                        else
+                          return Text(
+                            ' ',
+                            style: TextStyle(
+                              color: Colors.blue,
+                              fontSize: 9.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            textAlign: TextAlign.left,
+                          );
+                      })
+                    ],
+                  ),
+                ))

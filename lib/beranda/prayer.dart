@@ -43,75 +43,93 @@ class _Home extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.blue,
-      appBar: new KhiyaarAppBar(),
-      body: SafeArea(
-          child: Container(
-        child: Column(children: <Widget>[
-          SizedBox(height: 30),
-          SizedBox(height: 10),
-          Container(
-              height: MediaQuery.of(context).size.height * 0.45,
-              child: ListView.builder(
-                  itemCount: _prayerNames.length,
-                  itemBuilder: (context, position) {
-                    return Container(
-                        padding: EdgeInsets.all(5),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Container(
-                                width: 120,
-                                child: Text(_prayerNames[position],
+    return new SafeArea(
+      child: Scaffold(
+          backgroundColor: Colors.blue,
+          appBar: new KhiyaarAppBar(),
+          body: new Container(
+            child: Column(children: <Widget>[
+              Text(
+                'JADWAL SHOLAT',
+                style: new TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(height: 30),
+              SizedBox(height: 10),
+              Container(
+                  height: MediaQuery.of(context).size.height * 0.45,
+                  child: ListView.builder(
+                      itemCount: _prayerNames.length,
+                      itemBuilder: (context, position) {
+                        return Container(
+                            padding: EdgeInsets.all(5),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Container(
+                                    width: 90,
+                                    child: Text(_prayerNames[position],
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontFamily: 'Montserrat',
+                                            fontWeight: FontWeight.bold))),
+                                SizedBox(width: 100),
+                                Container(
+                                  width: 60,
+                                  child: Text(
+                                    _prayerTimes[position],
                                     style: TextStyle(
                                         color: Colors.white,
-                                        fontFamily: 'Montserrat',
-                                        fontWeight: FontWeight.bold))),
-                            SizedBox(width: 100),
-                            Container(
-                              width: 150,
-                              child: Text(
-                                _prayerTimes[position],
-                                style: TextStyle(
+                                        fontSize: 20,
+                                        fontFamily: 'Monserrat',
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                                Container(
+                                  width: 30,
+                                  child: Icon(
+                                    Icons.alarm,
                                     color: Colors.white,
-                                    fontSize: 20,
-                                    fontFamily: 'Monserrat',
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            )
-                          ],
-                        ));
-                  })),
-          SizedBox(height: 10),
-          FlatButton.icon(
-              onPressed: () {
-                _getLocation().then((value) {
-                  setState(() {
-                    userLocation = value;
-                    getPrayerTimes(
-                        userLocation.latitude, userLocation.longitude);
-                    getAddress(userLocation.latitude, userLocation.longitude);
-                    address = " ${userAddress.subAdministrativeArea} "
-                        " ${userAddress.country} ";
-                  });
+                                    size: 20.0,
+                                  ),
+                                )
+                              ],
+                            ));
+                      })),
+              SizedBox(height: 10),
+              FlatButton.icon(
+                  onPressed: () {
+                    _getLocation().then((value) {
+                      setState(() {
+                        userLocation = value;
+                        getPrayerTimes(
+                            userLocation.latitude, userLocation.longitude);
+                        getAddress(
+                            userLocation.latitude, userLocation.longitude);
+                        address = " ${userAddress.subAdministrativeArea} "
+                            " ${userAddress.country} ";
+                      });
 
-                  setSP();
-                });
-              },
-              icon: Icon(
-                Icons.location_on,
-                color: Colors.white,
-              ),
-              label: Text(
-                address ?? "Mencari lokasi ...",
-                style: TextStyle(
+                      setSP();
+                    });
+                  },
+                  icon: Icon(
+                    Icons.location_on,
                     color: Colors.white,
-                    fontFamily: 'Montserrat',
-                    fontSize: 14),
-              ))
-        ]),
-      )),
+                  ),
+                  label: Text(
+                    address ?? "Mencari lokasi ...",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'Montserrat',
+                        fontSize: 14),
+                  ))
+            ]),
+          )),
     );
   }
 

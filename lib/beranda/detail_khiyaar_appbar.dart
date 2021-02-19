@@ -4,6 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 class KhiyaarAppBar extends AppBar {
   KhiyaarAppBar()
       : super(
+            automaticallyImplyLeading: false,
             elevation: 0.25,
             backgroundColor: Colors.white,
             flexibleSpace: _buildKhiyaarAppBar());
@@ -19,7 +20,7 @@ class KhiyaarAppBar extends AppBar {
             onTap: () => launch('https://www.khiyaar.com'),
             child: Image.asset(
               "assets/world-wide-web.png",
-              height: 20.0,
+              height: 15.0,
               width: 20.0,
             ),
           ),
@@ -36,7 +37,7 @@ class KhiyaarAppBar extends AppBar {
             onTap: () => launch('https://web.facebook.com/khiyaartv/'),
             child: Image.asset(
               "assets/facebook.png",
-              height: 20.0,
+              height: 15.0,
               width: 20.0,
             ),
           ),
@@ -44,7 +45,7 @@ class KhiyaarAppBar extends AppBar {
             onTap: () => launch('https://www.instagram.com/khiyaartv/'),
             child: Image.asset(
               "assets/instagram.png",
-              height: 20.0,
+              height: 15.0,
               width: 20.0,
             ),
           ),
@@ -52,7 +53,7 @@ class KhiyaarAppBar extends AppBar {
             onTap: () => launch('mailto:tabungan.akhirat001@gmail.com'),
             child: Image.asset(
               "assets/gmail.png",
-              height: 20.0,
+              height: 15.0,
               width: 20.0,
             ),
           ),
@@ -66,7 +67,7 @@ class KhiyaarAppBar extends AppBar {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           new Image.asset(
-            "assets/logos-khiyaar.png",
+            "assets/khiyaars-logo.png",
             height: 100.0,
             width: 150.0,
           ),
@@ -82,7 +83,7 @@ class KhiyaarAppBar extends AppBar {
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: Colors.blue,
-                        fontSize: 12.0),
+                        fontSize: 14.0),
                   ),
                 ),
                 sosmedSection
